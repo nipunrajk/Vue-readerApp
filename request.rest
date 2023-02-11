@@ -1,0 +1,60 @@
+### Register a new user without admin
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{"username": "nipunraj",
+ "email": "nipunraj99@gmail.com",
+ "password": "123456"
+}
+
+### Register a new user with admin
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{"username": "admin",
+ "email": "admin@gmail.com",
+ "password": "123456",
+ "is_admin": true
+}
+
+### LOgin a user
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+ "email": "nipunraj99@gmail.com",
+ "password": "123456"
+}
+
+### get Articles
+GET http://localhost:8080/articles
+
+### create Articles
+POST http://localhost:8080/articles
+Content-Type: application/json
+
+{
+   "header": "article 3",
+    "author": "nipun",
+    "tags": 1,
+    "content": "fadfs",
+    "status": "submitted"
+} 
+
+### tag creation
+POST http://localhost:8080/tags
+Content-Type: application/json
+
+{
+    "name": "tag2"
+}
+
+### tag get request
+GET http://localhost:8080/tags
+
+### get specific article as params 
+GET http://localhost:8080/articles/header/article 2
+
+### get specific article by header or author as query (getByHeaderOrAuthor) 
+### here only header (getByHeader)
+GET http://localhost:8080/articles/search?header=article 2
