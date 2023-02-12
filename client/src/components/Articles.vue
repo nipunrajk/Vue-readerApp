@@ -117,7 +117,7 @@ export default {
       // You can add the implementation to search for articles based on the header name here
       try {
         const response = await ArticleService.getByHeader(this.searchTerm)
-        // handle the response here, for example:
+        // handle the response here
         this.articles = response.data
         console.log(response.data)
       } catch (error) {

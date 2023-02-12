@@ -16,8 +16,10 @@ module.exports = (app) => {
   // app.get('/articles/header/:header', ArticleController.getByHeader) //by params
   // app.get('/articles/search', ArticleController.getByHeaderOrAuthor)
   app.get('/articles/search', ArticleController.getByHeader)
+  app.get('/articles/search', ArticleController.searchByTag) //pending
 
   app.get('/:username/articles', ArticleController.indexByUser)
+  app.put('/:username/articles/:id', ArticleController.update)
 
   app.post('/tags', TagController.post)
   app.get('/tags', TagController.index)
