@@ -34,11 +34,11 @@ POST http://localhost:8080/articles
 Content-Type: application/json
 
 {
-   "header": "article 3",
-    "author": "nipun",
+   "header": "admin post",
+    "author": "admin",
     "tags": 1,
     "content": "fadfs",
-    "status": "submitted"
+    "status": "published"
 } 
 
 ### tag creation
@@ -46,7 +46,7 @@ POST http://localhost:8080/tags
 Content-Type: application/json
 
 {
-    "name": "tag2"
+    "name": "tag1"
 }
 
 ### tag get request
@@ -58,3 +58,9 @@ GET http://localhost:8080/articles/header/article 2
 ### get specific article by header or author as query (getByHeaderOrAuthor) 
 ### here only header (getByHeader)
 GET http://localhost:8080/articles/search?header=article 2
+
+###get articles which are published
+GET http://localhost:8080/articles
+
+### get articles which are for a particular user.
+GET http://localhost:8080/nipun/articles

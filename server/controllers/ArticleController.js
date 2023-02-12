@@ -8,12 +8,30 @@ module.exports = {
   async index(req, res) {
     try {
       const article = await Article.findAll({
+        //
+        where: {
+          status: 'published',
+        },
+        //
         limit: 10,
       })
       res.send(article)
     } catch (error) {
       res.status(500).send({
         error: 'An error has occured trying to fetch the article ',
+      })
+    }
+  },
+  async indexByUser(req, res) {
+    try {
+      const { username } = req.params
+      const articles = await Article.findAll({
+        where: { author: username },
+      })
+      res.send(articles)
+    } catch (error) {
+      res.status(500).send({
+        error: 'An error has occurred trying to fetch the articles',
       })
     }
   },

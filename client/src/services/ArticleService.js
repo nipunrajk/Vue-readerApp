@@ -10,4 +10,7 @@ export default {
   getTag() {
     return Api().get('tags')
   },
+  indexByUser(username) {
+    return Api().get(`/${username}/articles`)
+  },
 }

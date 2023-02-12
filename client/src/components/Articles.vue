@@ -1,7 +1,7 @@
 <template>
   <div class="container pt-5">
     <div class="row">
-      <div class="col">
+      <div class="col col-9">
         <div class="card">
           <div class="card-header text-center position-relative">
             <h3>Articles</h3>
@@ -21,15 +21,34 @@
                 Search
               </button>
             </div>
-            <!--  -->
+            <!-- Create new article -->
             <button
               type="button"
-              class="position-absolute top-0 end-0 btn btn-primary btn-circle"
+              class="position-absolute top-0 end-0 btn btn-success"
               @click="navigateTo({ name: 'article-create' })"
             >
               <i class="fa fa-plus"></i>
             </button>
           </div>
+          <!-- bottom line  -->
+          <div class="border-bottom ms-2 pt-2" v-if="username">
+            <button
+              type="button pb-0"
+              class="btn btn-outline-light text-dark mr-3"
+              @click="fetchMyPosts"
+            >
+              my-post
+            </button>
+            <button
+              type="button pb-0"
+              class="btn btn-outline-light text-dark"
+              @click="fetchAllPosts"
+            >
+              all-Post
+            </button>
+          </div>
+          <!--  -->
+
           <div class="card-body">
             <div v-for="article in articles" :key="article.id">
               <!-- articles  -->
@@ -59,25 +78,26 @@
           </div>
         </div>
       </div>
+      <div class="col-3">
+        <Tags />
+      </div>
     </div>
   </div>
 </template>
 <script>
 import ArticleService from '../services/ArticleService'
+import Tags from '../components/Tags.vue'
 
 export default {
-  components: {},
+  components: {
+    Tags,
+  },
   data() {
     return {
-      // articles: [
-      //   {
-      //     title: 'article1',
-      //     author: 'person 1',
-      //     description: 'anything',
-      //   },
-      // ],
       articles: null,
       searchTerm: '',
+      username: '',
+      myArticles: [],
     }
   },
   computed: {
@@ -96,11 +116,27 @@ export default {
     searchArticles() {
       // You can add the implementation to search for articles based on the header name here
     },
+    fetchMyPosts() {
+      ArticleService.indexByUser(this.username)
+        .then((response) => {
+          this.articles = response.data
+          // console.log(JSON.stringify(response.data))
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    async fetchAllPosts() {
+      this.articles = (await ArticleService.index()).data
+    },
   },
   async mounted() {
     // do a request to the backend for all the articles
-    this.articles = (await ArticleService.index()).data
+    // this.articles = (await ArticleService.index()).data
+    this.fetchAllPosts()
     console.log(this.$store.getters.user.updatedAt)
+    console.log(this.$store.getters.user.username)
+    this.username = this.$store.getters.user.username
   },
 }
 </script>
