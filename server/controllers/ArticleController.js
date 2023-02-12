@@ -74,7 +74,7 @@ module.exports = {
     try {
       const header = req.query.header
       const articles = await Article.findAll({
-        where: { header },
+        where: { header, status: 'published' },
       })
       res.send(articles)
     } catch (error) {

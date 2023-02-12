@@ -13,4 +13,7 @@ export default {
   indexByUser(username) {
     return Api().get(`/${username}/articles`)
   },
+  getByHeader(searchTerm) {
+    return Api().get(`/articles/search?header=${searchTerm}`)
+  },
 }
